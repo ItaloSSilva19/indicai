@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'splash.dart';
 import 'home_page.dart';
 import 'indica_filme.dart';
+import 'detalhes_filmes.dart';
 import '../pallete/pallete.dart';
 
 /// A classe [MyApp] representa o ponto-de-partida do aplicativo, ou seja,
@@ -32,7 +33,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/splash': (context) => const TelaSplash(),
         '/homepage': (context) => const MyHomePage(),
-        '/indicafilme': (context) => TelaIndicaFilme()
+        '/indicafilme': (context) => TelaIndicaFilme(),
+        '/detalhesfilme': (context) => TelaDetalhesFilme()
       },
     );
   }

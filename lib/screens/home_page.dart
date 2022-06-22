@@ -30,8 +30,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String titulo = 'Indicaí';
-
   final CollectionReference _filmes =
       FirebaseFirestore.instance.collection('filmes');
 
@@ -39,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(titulo,
+          title: Text('Indicaí',
               style: GoogleFonts.rubikWetPaint(
                   textStyle: const TextStyle(
                 fontSize: 36.0,
@@ -61,14 +59,19 @@ class _MyHomePageState extends State<MyHomePage> {
                             Filme.fromDocument(documentSnapshot);
                         return Column(
                           children: [
-                            Card(
-                                child: ListTile(
-                              leading: CircleAvatar(
-                                child: Text(filme.score!),
-                              ),
-                              title: Text(filme.nome!),
-                              subtitle: Text(filme.categoria!),
-                            ))
+                            InkWell(
+                                onTap: () {
+                                  Navigator.pushReplacementNamed(
+                                      context, "/indicafilme");
+                                },
+                                child: Card(
+                                    child: ListTile(
+                                  leading: CircleAvatar(
+                                    child: Text(filme.score!),
+                                  ),
+                                  title: Text(filme.nome!),
+                                  subtitle: Text(filme.categoria!),
+                                )))
                           ],
                         );
                       },

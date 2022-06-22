@@ -9,9 +9,7 @@
 .history
 .svn/
 
-/linux
-/windows
-/macos
+
 # IntelliJ related
 *.iml
 *.ipr
