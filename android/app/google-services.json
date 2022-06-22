@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "1041428914616",
+    "project_id": "indicaidev",
+    "storage_bucket": "indicaidev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041428914616:android:ae7f4a6d148d1251c5ef4d",
+        "android_client_info": {
+          "package_name": "com.example.indicai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1041428914616-69nf4jclmbmu785tc55in2lsg657a3d2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8g_qHfWVavPQZSRgCYlyF83lHOWd0wC4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1041428914616-69nf4jclmbmu785tc55in2lsg657a3d2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1041428914616-185muqds1fjf68af4j6vk3bmhul2111p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.indicai"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041428914616:android:581eb233654f5574c5ef4d",
+        "android_client_info": {
+          "package_name": "com.example.indikai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1041428914616-69nf4jclmbmu785tc55in2lsg657a3d2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8g_qHfWVavPQZSRgCYlyF83lHOWd0wC4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1041428914616-69nf4jclmbmu785tc55in2lsg657a3d2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1041428914616-185muqds1fjf68af4j6vk3bmhul2111p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.indicai"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
