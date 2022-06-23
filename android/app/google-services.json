@@ -50,6 +50,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1041428914616-iujn3k45r27gjpj3qrhhvmkj8i0so26h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.indikai",
+            "certificate_hash": "a24985d30ee6082db5daf332e71179348fb6074c"
+          }
+        },
+        {
           "client_id": "1041428914616-69nf4jclmbmu785tc55in2lsg657a3d2.apps.googleusercontent.com",
           "client_type": 3
         }

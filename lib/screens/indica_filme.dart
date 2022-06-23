@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:indikai/models/filme.dart';
 
-Future<void> filmeSetup(String nome) async {
-  final CollectionReference filmes =
-      FirebaseFirestore.instance.collection("filmes");
-  filmes.add({'nome': nome});
-  return;
+class TelaIndicaFilme extends StatefulWidget {
+  const TelaIndicaFilme({Key? key}) : super(key: key);
+
+  @override
+  State<TelaIndicaFilme> createState() => _TelaIndicaFilmeState();
 }
 
-class TelaIndicaFilme extends StatelessWidget {
-  TelaIndicaFilme({Key? key}) : super(key: key);
-
+class _TelaIndicaFilmeState extends State<TelaIndicaFilme> {
   final _formKey = GlobalKey<FormState>();
   final _filme = Filme.vazio();
+  late CollectionReference _filmes;
+  final _user = FirebaseAuth.instance.currentUser as User;
 
   @override
   Widget build(BuildContext context) {
+    _filmes =
+        FirebaseFirestore.instance.collection('usuarios/${_user.uid}/filmes');
     return Scaffold(
         appBar: AppBar(
           title: Text('Índicaí',
@@ -30,7 +33,7 @@ class TelaIndicaFilme extends StatelessWidget {
           _buildForm(context),
         ]),
         floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.check),
+          child: const Icon(Icons.check),
           onPressed: () async {
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'splash.dart';
 import 'home_page.dart';
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Palette.indicaiRed,
       ),
-      initialRoute: '/splash',
+      initialRoute:
+          FirebaseAuth.instance.currentUser == null ? '/splash' : '/homepage',
       routes: {
         '/splash': (context) => const TelaSplash(),
         '/homepage': (context) => const MyHomePage(),

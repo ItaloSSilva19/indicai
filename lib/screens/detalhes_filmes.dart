@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:indikai/models/filme.dart';
 
@@ -14,6 +15,7 @@ class TelaDetalhesFilme extends StatefulWidget {
 class _TelaDetalhesFilmeState extends State<TelaDetalhesFilme> {
   late Filme _filme;
   late DocumentReference _filmeRef;
+  final _user = FirebaseAuth.instance.currentUser as User;
 
   void _handleConfirmarExclusao() async {
     final excluir = await showDialog(
@@ -49,7 +51,8 @@ class _TelaDetalhesFilmeState extends State<TelaDetalhesFilme> {
   @override
   Widget build(BuildContext context) {
     _filme = ModalRoute.of(context)!.settings.arguments as Filme;
-    _filmeRef = FirebaseFirestore.instance.doc('filmes/${_filme.id}');
+    _filmeRef = FirebaseFirestore.instance
+        .doc('usuarios/${_user.uid}/filmes/${_filme.id}');
     return Scaffold(
       appBar: AppBar(
           title: Text('Indicaí',

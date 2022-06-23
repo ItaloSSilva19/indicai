@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:indikai/models/filme.dart';
 
@@ -14,6 +15,8 @@ class TelaEditarFilme extends StatefulWidget {
 class _TelaEditarFilme extends State<TelaEditarFilme> {
   late Filme _filme;
   late DocumentReference _filmeRef;
+  final _user = FirebaseAuth.instance.currentUser as User;
+
   final _formKey = GlobalKey<FormState>();
 
   Widget _buildForm(BuildContext context) {
@@ -129,11 +132,14 @@ class _TelaEditarFilme extends State<TelaEditarFilme> {
   Widget build(BuildContext context) {
     _filme = ModalRoute.of(context)!.settings.arguments as Filme;
 
-    _filmeRef = FirebaseFirestore.instance.doc('filmes/${_filme.id}');
+    _filmeRef = FirebaseFirestore.instance
+        .doc('usuarios/${_user.uid}/filmes/${_filme.id}');
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Editar filme'),
+        title: Text('Editaí',
+            style: GoogleFonts.rubikWetPaint(
+                textStyle: const TextStyle(fontSize: 36.0))),
       ),
       body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
