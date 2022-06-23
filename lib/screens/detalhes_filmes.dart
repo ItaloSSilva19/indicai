@@ -15,10 +15,41 @@ class _TelaDetalhesFilmeState extends State<TelaDetalhesFilme> {
   late Filme _filme;
   late DocumentReference _filmeRef;
 
+  void _handleConfirmarExclusao() async {
+    final excluir = await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Confirmar exclusão'),
+          content: const Text('Tem certeza que deseja excluir este veículo?'),
+          actions: [
+            TextButton(
+              child: const Text("NÃO"),
+              onPressed: () {
+                return Navigator.of(context).pop(false);
+              },
+            ),
+            TextButton(
+              child: const Text("SIM"),
+              onPressed: () {
+                return Navigator.of(context).pop(true);
+              },
+            )
+          ],
+        );
+      },
+    );
+    if (excluir) {
+      await _filmeRef.delete();
+      if (!mounted) return;
+      Navigator.of(context).pushReplacementNamed('/homepage');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     _filme = ModalRoute.of(context)!.settings.arguments as Filme;
-    _filmeRef = FirebaseFirestore.instance.doc('/filmes/${_filme.id}');
+    _filmeRef = FirebaseFirestore.instance.doc('filmes/${_filme.id}');
     return Scaffold(
       appBar: AppBar(
           title: Text('Indicaí',
@@ -35,12 +66,21 @@ class _TelaDetalhesFilmeState extends State<TelaDetalhesFilme> {
       ),
       floatingActionButton:
           Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-        FloatingActionButton(onPressed: () {
-          Navigator.of(context).pushNamed(
-            '/editarfilme',
-            arguments: _filme,
-          );
-        })
+        FloatingActionButton(
+            heroTag: 'editar',
+            child: const Icon(Icons.edit),
+            onPressed: () {
+              Navigator.of(context).pushNamed(
+                '/editarfilme',
+                arguments: _filme,
+              );
+            }),
+        FloatingActionButton(
+          heroTag: 'excluir',
+          backgroundColor: Colors.red,
+          child: Icon(Icons.delete),
+          onPressed: _handleConfirmarExclusao,
+        )
       ]),
     );
   }
