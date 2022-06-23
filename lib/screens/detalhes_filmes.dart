@@ -4,13 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:indikai/models/filme.dart';
 
-Future<void> filmeSetup(String nome) async {
-  final CollectionReference filmes =
-      FirebaseFirestore.instance.collection("filmes");
-  filmes.add({'nome': nome});
-  return;
-}
-
 class TelaDetalhesFilme extends StatefulWidget {
   const TelaDetalhesFilme({Key? key}) : super(key: key);
 
@@ -25,15 +18,30 @@ class _TelaDetalhesFilmeState extends State<TelaDetalhesFilme> {
   @override
   Widget build(BuildContext context) {
     _filme = ModalRoute.of(context)!.settings.arguments as Filme;
-    _filmeRef = FirebaseFirestore.instance.doc(_filme.id);
+    _filmeRef = FirebaseFirestore.instance.doc('/filmes/${_filme.id}');
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
           title: Text('Indicaí',
               style: GoogleFonts.rubikWetPaint(
-                  textStyle: const TextStyle(
-                fontSize: 36.0,
-              ))),
-        ),
-        body: Text('hahah'));
+                  textStyle: const TextStyle(fontSize: 36.0)))),
+      body: Column(
+        children: [
+          ListTile(
+            leading: CircleAvatar(child: Text(_filme.score!)),
+            title: Text(_filme.nome!),
+            subtitle: Text(_filme.categoria!),
+          ),
+        ],
+      ),
+      floatingActionButton:
+          Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+        FloatingActionButton(onPressed: () {
+          Navigator.of(context).pushNamed(
+            '/editarfilme',
+            arguments: _filme,
+          );
+        })
+      ]),
+    );
   }
 }

@@ -4,6 +4,7 @@ import 'splash.dart';
 import 'home_page.dart';
 import 'indica_filme.dart';
 import 'detalhes_filmes.dart';
+import 'editar_filme.dart';
 import '../pallete/pallete.dart';
 
 /// A classe [MyApp] representa o ponto-de-partida do aplicativo, ou seja,
@@ -27,14 +28,15 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Indicaí',
       theme: ThemeData(
-          primarySwatch: Palette.indicaiRed,
-          scaffoldBackgroundColor: const Color(0xFF49454F)),
+        primarySwatch: Palette.indicaiRed,
+      ),
       initialRoute: '/splash',
       routes: {
         '/splash': (context) => const TelaSplash(),
         '/homepage': (context) => const MyHomePage(),
         '/indicafilme': (context) => TelaIndicaFilme(),
-        '/detalhesfilme': (context) => TelaDetalhesFilme()
+        '/detalhesfilme': (context) => TelaDetalhesFilme(),
+        '/editarfilme': (context) => TelaEditarFilme(),
       },
     );
   }
