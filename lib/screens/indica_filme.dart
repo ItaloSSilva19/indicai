@@ -39,8 +39,8 @@ class _TelaIndicaFilmeState extends State<TelaIndicaFilme> {
               _formKey.currentState!.save();
               FirebaseFirestore.instance
                   .runTransaction((Transaction transaction) async {
-                CollectionReference reference =
-                    FirebaseFirestore.instance.collection('filmes');
+                CollectionReference reference = FirebaseFirestore.instance
+                    .collection('usuarios/${_user.uid}/filmes');
 
                 await reference.add({
                   "nome": _filme.nome,
