@@ -14,13 +14,10 @@ class TelaIndicaFilme extends StatefulWidget {
 class _TelaIndicaFilmeState extends State<TelaIndicaFilme> {
   final _formKey = GlobalKey<FormState>();
   final _filme = Filme.vazio();
-  late CollectionReference _filmes;
   final _user = FirebaseAuth.instance.currentUser as User;
 
   @override
   Widget build(BuildContext context) {
-    _filmes =
-        FirebaseFirestore.instance.collection('usuarios/${_user.uid}/filmes');
     return Scaffold(
         appBar: AppBar(
           title: Text('Índicaí',
@@ -46,7 +43,8 @@ class _TelaIndicaFilmeState extends State<TelaIndicaFilme> {
                   "nome": _filme.nome,
                   "anoLancamento": _filme.anoLancamento,
                   "score": _filme.score,
-                  "categoria": _filme.categoria
+                  "categoria": _filme.categoria,
+                  "usuario": _user.displayName
                 });
                 Navigator.of(context).pushNamed("/homepage");
               });
@@ -63,7 +61,10 @@ class _TelaIndicaFilmeState extends State<TelaIndicaFilme> {
         child: Column(
           children: [
             TextFormField(
-              decoration: const InputDecoration(labelText: 'Nome'),
+              style: TextStyle(color: Colors.white),
+              decoration: const InputDecoration(
+                  labelText: 'Nome',
+                  labelStyle: TextStyle(color: Colors.white54)),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Informe o nome do Filme';
@@ -78,7 +79,10 @@ class _TelaIndicaFilmeState extends State<TelaIndicaFilme> {
               height: 20,
             ),
             TextFormField(
-              decoration: const InputDecoration(labelText: 'Categoria'),
+              style: TextStyle(color: Colors.white),
+              decoration: const InputDecoration(
+                  labelText: 'Categoria',
+                  labelStyle: TextStyle(color: Colors.white54)),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Informe a categoria do Filme';
@@ -93,7 +97,10 @@ class _TelaIndicaFilmeState extends State<TelaIndicaFilme> {
               height: 20,
             ),
             TextFormField(
-              decoration: const InputDecoration(labelText: 'Ano de lançamento'),
+              style: TextStyle(color: Colors.white),
+              decoration: const InputDecoration(
+                  labelText: 'Ano de lançamento',
+                  labelStyle: TextStyle(color: Colors.white54)),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Informe o ano de lançamento do Filme';
@@ -108,7 +115,10 @@ class _TelaIndicaFilmeState extends State<TelaIndicaFilme> {
               height: 20,
             ),
             TextFormField(
-              decoration: const InputDecoration(labelText: 'Pontuação'),
+              style: TextStyle(color: Colors.white),
+              decoration: const InputDecoration(
+                  labelText: 'Pontuação',
+                  labelStyle: TextStyle(color: Colors.white54)),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Qual a sua indicação do Filme';

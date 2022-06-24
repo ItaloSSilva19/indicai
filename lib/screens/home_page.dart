@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,16 +19,25 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    _filmes =
-        FirebaseFirestore.instance.collection('usuarios/${_user.uid}/filmes');
+    _filmes = FirebaseFirestore.instance.collection('/filmes');
     return StreamBuilder(
       stream: _filmes.snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasData) {
           print(snapshot.data!.docs.length);
-          Widget body = const Center(
-            child: Text('Nenhum filme cadastrado'),
-          );
+          Widget body = Center(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                Text('Não indicou nenhum filme?',
+                    style: GoogleFonts.rubikWetPaint(
+                        textStyle: const TextStyle(fontSize: 24.0))),
+                Text('Indicaí',
+                    style: GoogleFonts.rubikWetPaint(
+                        textStyle: const TextStyle(fontSize: 36.0))),
+              ]));
+
           if (snapshot.data!.docs.isNotEmpty) {
             body = ListView.builder(
               itemCount: snapshot.data!.docs.length,
@@ -36,11 +46,31 @@ class _MyHomePageState extends State<MyHomePage> {
                     as DocumentSnapshot<Map<String, dynamic>>;
                 final filme = Filme.fromDocument(documentSnapshot);
                 return ListTile(
-                  leading: CircleAvatar(
-                    child: Text(filme.score!),
+                  leading: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      const Icon(Icons.star, size: 80, color: Colors.amber),
+                      Text(
+                        '${filme.score}',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
                   ),
-                  title: Text(filme.nome!),
-                  subtitle: Text(filme.categoria!),
+                  title: Text(
+                    filme.nome!,
+                    style: GoogleFonts.rubikWetPaint(
+                        textStyle:
+                            TextStyle(color: Colors.white, fontSize: 24.0)),
+                  ),
+                  subtitle: Text(
+                    filme.categoria!,
+                    style: GoogleFonts.rubikWetPaint(
+                        textStyle:
+                            TextStyle(color: Colors.white, fontSize: 20.0)),
+                  ),
                   onTap: () {
                     Navigator.of(context).pushNamed(
                       '/detalhesfilme',
@@ -53,9 +83,24 @@ class _MyHomePageState extends State<MyHomePage> {
           }
           return Scaffold(
             appBar: AppBar(
+              toolbarHeight: 75,
               title: Text('Indicaí',
                   style: GoogleFonts.rubikWetPaint(
-                      textStyle: const TextStyle(fontSize: 36.0))),
+                      textStyle: const TextStyle(fontSize: 48.0))),
+              actions: [
+                InkWell(
+                    child: Padding(
+                      padding: EdgeInsets.all(1),
+                      child: CircleAvatar(
+                        radius: 30.0,
+                        backgroundImage: NetworkImage('${_user.photoURL}'),
+                        backgroundColor: Colors.transparent,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pushNamed("/perfil");
+                    })
+              ],
             ),
             body: body,
             floatingActionButton: FloatingActionButton(

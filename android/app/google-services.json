@@ -58,6 +58,14 @@
           }
         },
         {
+          "client_id": "1041428914616-jc0uneoejii59iha465injm6tsgc7mho.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.indikai",
+            "certificate_hash": "b643481c11b655b7c00e395da55fd7e9dceeee17"
+          }
+        },
+        {
           "client_id": "1041428914616-69nf4jclmbmu785tc55in2lsg657a3d2.apps.googleusercontent.com",
           "client_type": 3
         }
