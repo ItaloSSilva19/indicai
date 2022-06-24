@@ -6,6 +6,7 @@ import 'home_page.dart';
 import 'indica_filme.dart';
 import 'detalhes_filmes.dart';
 import 'editar_filme.dart';
+import 'perfil.dart';
 import '../pallete/pallete.dart';
 
 /// A classe [MyApp] representa o ponto-de-partida do aplicativo, ou seja,
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
       title: 'Indicaí',
       theme: ThemeData(
         primarySwatch: Palette.indicaiRed,
+        scaffoldBackgroundColor: Color(0xFF06122E),
       ),
       initialRoute:
           FirebaseAuth.instance.currentUser == null ? '/splash' : '/homepage',
@@ -39,6 +41,7 @@ class MyApp extends StatelessWidget {
         '/indicafilme': (context) => TelaIndicaFilme(),
         '/detalhesfilme': (context) => TelaDetalhesFilme(),
         '/editarfilme': (context) => TelaEditarFilme(),
+        '/perfil': (context) => TelaPerfil(),
       },
     );
   }

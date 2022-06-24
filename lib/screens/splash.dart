@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 /// Realiza login com o Google
 Future<UserCredential> signInWithGoogle() async {
@@ -54,18 +55,19 @@ class _TelaSplashState extends State<TelaSplash> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Image(
-            image: AssetImage('assets/graphics/indicai.png'),
+            image: AssetImage('assets/graphics/indicai.jpeg'),
           ),
           const SizedBox(
             height: 20,
           ),
-          ElevatedButton(
+          SignInButton(
+            Buttons.Google,
             onPressed: () async {
               await signInWithGoogle();
               if (!mounted) return;
               Navigator.of(context).pushReplacementNamed("/homepage");
             },
-            child: Text('ENTRAR COM GOOGLE'),
+            text: 'ENTRAR COM GOOGLE',
           ),
         ],
       ),
