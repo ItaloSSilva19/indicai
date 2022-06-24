@@ -6,16 +6,24 @@ class Filme {
   String? categoria;
   String? score;
   String? anoLancamento;
+  String? imagem;
 
   Filme(
       {required this.id,
       this.nome,
       this.categoria,
       this.score,
-      this.anoLancamento});
+      this.anoLancamento,
+      this.imagem});
 
   Filme.vazio()
-      : this(id: '', nome: '', categoria: '', score: '', anoLancamento: '');
+      : this(
+            id: '',
+            nome: '',
+            categoria: '',
+            score: '',
+            anoLancamento: '',
+            imagem: '');
 
   factory Filme.fromDocument(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
@@ -26,7 +34,8 @@ class Filme {
         nome: data?["nome"],
         categoria: data?["categoria"],
         score: data?["score"],
-        anoLancamento: data?["anoLancamento"]);
+        anoLancamento: data?["anoLancamento"],
+        imagem: data?["imagem"]);
   }
 
   Map<String, dynamic> toDocument() {
@@ -35,6 +44,7 @@ class Filme {
       if (categoria != null) "categoria": categoria,
       if (score != null) "score": score,
       if (anoLancamento != null) "anoLancamento": anoLancamento,
+      if (imagem != null) "imagem": imagem
     };
   }
 }

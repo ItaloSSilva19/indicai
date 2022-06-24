@@ -19,6 +19,7 @@ class _TelaIndicaFilmeState extends State<TelaIndicaFilme> {
   final _filme = Filme.vazio();
   final _user = FirebaseAuth.instance.currentUser as User;
   final Storage storage = Storage();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,9 +56,55 @@ class _TelaIndicaFilmeState extends State<TelaIndicaFilme> {
                     .then((value) => print('Done'));
                 print(path);
                 print(fileName);
-                _filme.imagem = fileName;
               },
-              child: Text('Adicionar Imagem')),
+              child: Text('Upload File')),
+          FutureBuilder(
+              future: storage.listFiles(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<firebase_storage.ListResult> snapshot) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    height: 50,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.items.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ElevatedButton(
+                          onPressed: () {},
+                          child: Text(snapshot.data!.items[index].name),
+                        );
+                      },
+                    ),
+                  );
+                }
+                if (snapshot.connectionState == ConnectionState.waiting ||
+                    !snapshot.hasData) {
+                  return CircularProgressIndicator();
+                }
+                return Container();
+              }),
+          FutureBuilder(
+              future: storage.downloadURL('batman.jpg'),
+              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
+                  return Container(
+                      width: 200,
+                      height: 150,
+                      child: Image.network(
+                        snapshot.data!,
+                        fit: BoxFit.cover,
+                      ));
+                }
+                if (snapshot.connectionState == ConnectionState.waiting ||
+                    !snapshot.hasData) {
+                  return CircularProgressIndicator();
+                }
+                return Container();
+              })
         ])),
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.check),
@@ -75,7 +122,6 @@ class _TelaIndicaFilmeState extends State<TelaIndicaFilme> {
                   "score": _filme.score,
                   "categoria": _filme.categoria,
                   "usuario": _user.displayName,
-                  "imagem": _filme.imagem
                 });
                 Navigator.of(context).pushNamed("/homepage");
               });

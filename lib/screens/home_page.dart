@@ -1,9 +1,9 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:indikai/storage_service.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import '../models/filme.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -16,10 +16,36 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late CollectionReference _filmes;
   final _user = FirebaseAuth.instance.currentUser as User;
+  final Storage storage = Storage();
+
+  _getImagem(filme) {
+    return FutureBuilder(
+        future: storage.downloadURL('${filme.imagem}'),
+        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done &&
+              snapshot.hasData) {
+            return Container(
+                width: 200,
+                height: 150,
+                child: Image.network(
+                  snapshot.data!,
+                  fit: BoxFit.cover,
+                ));
+          }
+          if (snapshot.connectionState == ConnectionState.waiting ||
+              !snapshot.hasData) {
+            return CircularProgressIndicator();
+          }
+          return Container();
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
-    _filmes = FirebaseFirestore.instance.collection('/filmes');
+    _filmes = FirebaseFirestore.instance
+        .collection('/usuarios')
+        .doc(_user.uid)
+        .collection('filmes');
     return StreamBuilder(
       stream: _filmes.snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -32,10 +58,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                 Text('Não indicou nenhum filme?',
                     style: GoogleFonts.rubikWetPaint(
-                        textStyle: const TextStyle(fontSize: 24.0))),
+                        textStyle: const TextStyle(
+                            fontSize: 24.0, color: Colors.white))),
                 Text('Indicaí',
                     style: GoogleFonts.rubikWetPaint(
-                        textStyle: const TextStyle(fontSize: 36.0))),
+                        textStyle: const TextStyle(
+                            fontSize: 36.0, color: Colors.white))),
               ]));
 
           if (snapshot.data!.docs.isNotEmpty) {
@@ -45,39 +73,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 final documentSnapshot = snapshot.data!.docs[index]
                     as DocumentSnapshot<Map<String, dynamic>>;
                 final filme = Filme.fromDocument(documentSnapshot);
-                return ListTile(
-                  leading: Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: [
-                      const Icon(Icons.star, size: 80, color: Colors.amber),
-                      Text(
-                        '${filme.score}',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                  title: Text(
-                    filme.nome!,
-                    style: GoogleFonts.rubikWetPaint(
-                        textStyle:
-                            TextStyle(color: Colors.white, fontSize: 24.0)),
-                  ),
-                  subtitle: Text(
-                    filme.categoria!,
-                    style: GoogleFonts.rubikWetPaint(
-                        textStyle:
-                            TextStyle(color: Colors.white, fontSize: 20.0)),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).pushNamed(
-                      '/detalhesfilme',
-                      arguments: filme,
-                    );
-                  },
-                );
+                return InkWell(
+                    child: Padding(
+                      padding: EdgeInsets.all(1),
+                      child: _getImagem(filme),
+                    ),
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamed('/detalhesfilme', arguments: filme);
+                    });
               },
             );
           }
@@ -98,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamed("/perfil");
+                      Navigator.of(context).pushNamed('/perfil');
                     })
               ],
             ),

@@ -55,7 +55,7 @@ class _TelaSplashState extends State<TelaSplash> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Image(
-            image: AssetImage('assets/graphics/indicai.jpeg'),
+            image: AssetImage('assets/graphics/indicai.png'),
           ),
           const SizedBox(
             height: 20,
