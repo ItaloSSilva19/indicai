@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,8 +19,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    _filmes =
-        FirebaseFirestore.instance.collection('usuarios/${_user.uid}/filmes');
+    _filmes = FirebaseFirestore.instance.collection('/filmes');
     return StreamBuilder(
       stream: _filmes.snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -46,11 +46,31 @@ class _MyHomePageState extends State<MyHomePage> {
                     as DocumentSnapshot<Map<String, dynamic>>;
                 final filme = Filme.fromDocument(documentSnapshot);
                 return ListTile(
-                  leading: CircleAvatar(
-                    child: Text(filme.score!),
+                  leading: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      const Icon(Icons.star, size: 80, color: Colors.amber),
+                      Text(
+                        '${filme.score}',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
                   ),
-                  title: Text(filme.nome!),
-                  subtitle: Text(filme.categoria!),
+                  title: Text(
+                    filme.nome!,
+                    style: GoogleFonts.rubikWetPaint(
+                        textStyle:
+                            TextStyle(color: Colors.white, fontSize: 24.0)),
+                  ),
+                  subtitle: Text(
+                    filme.categoria!,
+                    style: GoogleFonts.rubikWetPaint(
+                        textStyle:
+                            TextStyle(color: Colors.white, fontSize: 20.0)),
+                  ),
                   onTap: () {
                     Navigator.of(context).pushNamed(
                       '/detalhesfilme',
