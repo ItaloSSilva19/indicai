@@ -42,11 +42,17 @@ dependencies:
   flutter_signin_button: ^2.0.0
   firebase_storage: ^10.2.18
   file_picker: ^4.0.3
-  carousel_slider: ^4.1.1
+  like_button: ^2.0.4
+
+  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+
+
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

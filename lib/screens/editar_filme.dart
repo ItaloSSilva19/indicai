@@ -25,10 +25,13 @@ class _TelaEditarFilme extends State<TelaEditarFilme> {
         child: Column(
           children: [
             TextFormField(
+              style: TextStyle(color: Colors.white),
               initialValue: _filme.nome,
               decoration: const InputDecoration(
                 labelText: 'Nome',
+                labelStyle: TextStyle(color: Colors.white54),
                 helperText: 'Informe o nome do filme',
+                helperStyle: TextStyle(color: Colors.lightBlue),
                 border: OutlineInputBorder(),
               ),
               validator: (value) {
@@ -45,10 +48,13 @@ class _TelaEditarFilme extends State<TelaEditarFilme> {
               height: 20,
             ),
             TextFormField(
+              style: TextStyle(color: Colors.white),
               initialValue: _filme.categoria,
               decoration: const InputDecoration(
                 labelText: 'Categoria',
+                labelStyle: TextStyle(color: Colors.white54),
                 helperText: 'Informe a categoria',
+                helperStyle: TextStyle(color: Colors.lightBlue),
                 border: OutlineInputBorder(),
               ),
               validator: (value) {
@@ -65,10 +71,13 @@ class _TelaEditarFilme extends State<TelaEditarFilme> {
               height: 20,
             ),
             TextFormField(
+              style: TextStyle(color: Colors.white),
               initialValue: _filme.anoLancamento,
               decoration: const InputDecoration(
                 labelText: 'Ano de lançamento',
+                labelStyle: TextStyle(color: Colors.white54),
                 helperText: 'Informe o ano de lançamento',
+                helperStyle: TextStyle(color: Colors.lightBlue),
                 border: OutlineInputBorder(),
               ),
               validator: (value) {
@@ -85,10 +94,13 @@ class _TelaEditarFilme extends State<TelaEditarFilme> {
               height: 20,
             ),
             TextFormField(
+              style: TextStyle(color: Colors.white),
               initialValue: _filme.score,
               decoration: const InputDecoration(
                 labelText: 'Nota',
+                labelStyle: TextStyle(color: Colors.white54),
                 helperText: 'Informe a nota do filme',
+                helperStyle: TextStyle(color: Colors.lightBlue),
                 border: OutlineInputBorder(),
               ),
               validator: (value) {
@@ -148,7 +160,8 @@ class _TelaEditarFilme extends State<TelaEditarFilme> {
             children: [
               Container(
                 padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
-                child: const Text('Atualize os dados do filme'),
+                child: const Text('Atualize os dados do filme',
+                    style: TextStyle(color: Colors.white)),
               ),
               const SizedBox(
                 height: 10,
@@ -163,7 +176,7 @@ class _TelaEditarFilme extends State<TelaEditarFilme> {
               _formKey.currentState!.save();
               await _filmeRef.update(_filme.toDocument());
               if (!mounted) return;
-              Navigator.of(context).pushNamed('/homepage');
+              Navigator.of(context).pushNamed("/homepage");
             } else {
               _showDialogErrors();
             }

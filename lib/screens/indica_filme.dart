@@ -23,11 +23,24 @@ class _TelaIndicaFilmeState extends State<TelaIndicaFilme> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Índicaí',
+          toolbarHeight: 75,
+          title: Text('Cadastraí',
               style: GoogleFonts.rubikWetPaint(
-                  textStyle: const TextStyle(
-                fontSize: 36.0,
-              ))),
+                  textStyle: const TextStyle(fontSize: 36.0))),
+          actions: [
+            InkWell(
+                child: Padding(
+                  padding: EdgeInsets.all(1),
+                  child: CircleAvatar(
+                    radius: 30.0,
+                    backgroundImage: NetworkImage('${_user.photoURL}'),
+                    backgroundColor: Colors.transparent,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.of(context).pushNamed('/perfil');
+                })
+          ],
         ),
         body: SingleChildScrollView(
             child: Column(children: [
@@ -42,7 +55,7 @@ class _TelaIndicaFilmeState extends State<TelaIndicaFilme> {
                 if (results == null) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('No file selected.'),
+                      content: Text('Nenhuma Imagem Selecionada.'),
                     ),
                   );
                   return;
@@ -75,9 +88,10 @@ class _TelaIndicaFilmeState extends State<TelaIndicaFilme> {
                   "score": _filme.score,
                   "categoria": _filme.categoria,
                   "usuario": _user.displayName,
-                  "imagem": _filme.imagem
+                  "imagem": _filme.imagem!,
+                  "indicada": 1
                 });
-                Navigator.of(context).pushNamed("/homepage");
+                Navigator.of(context).pop();
               });
             } else {
               Text('deu ruim');

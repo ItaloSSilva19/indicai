@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:indikai/storage_service.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import '../models/filme.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -26,11 +25,13 @@ class _MyHomePageState extends State<MyHomePage> {
               snapshot.hasData) {
             return Container(
                 width: 200,
-                height: 150,
-                child: Image.network(
-                  snapshot.data!,
-                  fit: BoxFit.cover,
-                ));
+                height: 550,
+                child: Padding(
+                    padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                    child: Image.network(
+                      snapshot.data!,
+                      fit: BoxFit.cover,
+                    )));
           }
           if (snapshot.connectionState == ConnectionState.waiting ||
               !snapshot.hasData) {
