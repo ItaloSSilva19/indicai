@@ -35,8 +35,8 @@ class _TelaEditarFilme extends State<TelaEditarFilme> {
                 border: OutlineInputBorder(),
               ),
               validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Informe o nome do filme';
+                if (value!.isEmpty) {
+                  return 'Informe o nome do Filme';
                 }
                 return null;
               },
@@ -58,8 +58,9 @@ class _TelaEditarFilme extends State<TelaEditarFilme> {
                 border: OutlineInputBorder(),
               ),
               validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Informe a categoria do filme';
+                if (value!.isEmpty &&
+                    !RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                  return 'Informe uma categoria válida';
                 }
                 return null;
               },
@@ -81,8 +82,9 @@ class _TelaEditarFilme extends State<TelaEditarFilme> {
                 border: OutlineInputBorder(),
               ),
               validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Informe o ano de lançamento do filme';
+                if (value!.isEmpty ||
+                    !RegExp(r'19[00-99]|20[00-99]').hasMatch(value)) {
+                  return 'Informe um ano válido';
                 }
                 return null;
               },
@@ -104,8 +106,9 @@ class _TelaEditarFilme extends State<TelaEditarFilme> {
                 border: OutlineInputBorder(),
               ),
               validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Informe a nota do filme';
+                if (value!.isEmpty ||
+                    !RegExp(r'^[0-9]?$|^10$').hasMatch(value)) {
+                  return 'Informe uma indicação válida: 0 até 10';
                 }
                 return null;
               },

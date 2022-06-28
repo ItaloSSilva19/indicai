@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:indikai/models/filme.dart';
 import 'package:indikai/storage_service.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class TelaIndicaFilme extends StatefulWidget {
   const TelaIndicaFilme({Key? key}) : super(key: key);
@@ -111,7 +110,7 @@ class _TelaIndicaFilmeState extends State<TelaIndicaFilme> {
                   labelText: 'Nome',
                   labelStyle: TextStyle(color: Colors.white54)),
               validator: (value) {
-                if (value == null || value.isEmpty) {
+                if (value!.isEmpty) {
                   return 'Informe o nome do Filme';
                 }
                 return null;
@@ -129,8 +128,9 @@ class _TelaIndicaFilmeState extends State<TelaIndicaFilme> {
                   labelText: 'Categoria',
                   labelStyle: TextStyle(color: Colors.white54)),
               validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Informe a categoria do Filme';
+                if (value!.isEmpty &&
+                    !RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                  return 'Informe uma categoria válida';
                 }
                 return null;
               },
@@ -147,8 +147,9 @@ class _TelaIndicaFilmeState extends State<TelaIndicaFilme> {
                   labelText: 'Ano de lançamento',
                   labelStyle: TextStyle(color: Colors.white54)),
               validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Informe o ano de lançamento do Filme';
+                if (value!.isEmpty ||
+                    !RegExp(r'19[00-99]|20[00-99]').hasMatch(value)) {
+                  return 'Informe um ano válido: 1900 à 2099';
                 }
                 return null;
               },
@@ -165,8 +166,9 @@ class _TelaIndicaFilmeState extends State<TelaIndicaFilme> {
                   labelText: 'Pontuação',
                   labelStyle: TextStyle(color: Colors.white54)),
               validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Qual a sua indicação do Filme';
+                if (value!.isEmpty ||
+                    !RegExp(r'^[0-9]?$|^10$').hasMatch(value)) {
+                  return 'Informe uma indicação válida: 0 até 10';
                 }
                 return null;
               },

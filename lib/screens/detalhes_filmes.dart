@@ -76,34 +76,6 @@ class _TelaDetalhesFilmeState extends State<TelaDetalhesFilme> {
                             fit: BoxFit.fill,
                           ))),
                 ),
-                Text('${_filme.nome}',
-                    style: GoogleFonts.medievalSharp(
-                        textStyle: const TextStyle(
-                            fontSize: 36.0, color: Colors.white))),
-                Container(
-                  child: LikeButton(),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment
-                      .spaceEvenly, // use whichever suits your need
-
-                  children: [
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text('${_filme.categoria}',
-                        style: GoogleFonts.medievalSharp(
-                            textStyle: const TextStyle(
-                                fontSize: 24.0, color: Colors.white))),
-                    Text('${_filme.anoLancamento}',
-                        style: GoogleFonts.medievalSharp(
-                            textStyle: const TextStyle(
-                                fontSize: 20.0, color: Colors.white))),
-                    SizedBox(
-                      width: 20,
-                    )
-                  ],
-                ),
               ],
             );
           }
@@ -144,7 +116,46 @@ class _TelaDetalhesFilmeState extends State<TelaDetalhesFilme> {
         ],
       ),
       body: Column(
-        children: [_getImagem(_filme)],
+        children: [
+          _getImagem(_filme),
+          Text('${_filme.nome}',
+              style: GoogleFonts.medievalSharp(
+                  textStyle:
+                      const TextStyle(fontSize: 36.0, color: Colors.white))),
+          Column(children: [LikeButton(), Text('${_filme.indicada}')]),
+          Row(
+            mainAxisAlignment:
+                MainAxisAlignment.spaceEvenly, // use whichever suits your need
+
+            children: [
+              SizedBox(
+                width: 20,
+              ),
+              Text('${_filme.categoria}',
+                  style: GoogleFonts.medievalSharp(
+                      textStyle: const TextStyle(
+                          fontSize: 24.0, color: Colors.white))),
+              Text('${_filme.anoLancamento}',
+                  style: GoogleFonts.medievalSharp(
+                      textStyle: const TextStyle(
+                          fontSize: 20.0, color: Colors.white))),
+              SizedBox(
+                width: 20,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          CircleAvatar(
+            radius: 30,
+            backgroundColor: Colors.black,
+            child: Text('${_filme.score}',
+                style: GoogleFonts.medievalSharp(
+                    textStyle:
+                        const TextStyle(fontSize: 32.0, color: Colors.white))),
+          )
+        ],
       ),
       floatingActionButton:
           Column(mainAxisAlignment: MainAxisAlignment.end, children: [
