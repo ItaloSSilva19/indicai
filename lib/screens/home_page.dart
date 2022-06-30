@@ -58,10 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    _filmes = FirebaseFirestore.instance
-        .collection('/usuarios')
-        .doc(_user.uid)
-        .collection('filmes');
+    _filmes = FirebaseFirestore.instance.collection('/filmes');
     return StreamBuilder(
       stream: _filmes.snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {

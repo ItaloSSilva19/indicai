@@ -90,6 +90,22 @@ class _TelaIndicaFilmeState extends State<TelaIndicaFilme> {
                   "imagem": _filme.imagem!,
                   "indicada": 1
                 });
+              });
+
+              FirebaseFirestore.instance
+                  .runTransaction((Transaction transaction) async {
+                CollectionReference referenceFilmes =
+                    FirebaseFirestore.instance.collection('filmes');
+
+                await referenceFilmes.add({
+                  "nome": _filme.nome,
+                  "anoLancamento": _filme.anoLancamento,
+                  "score": _filme.score,
+                  "categoria": _filme.categoria,
+                  "usuario": _user.displayName,
+                  "imagem": _filme.imagem!,
+                  "indicada": 1
+                });
                 Navigator.of(context).pop();
               });
             } else {
