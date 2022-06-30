@@ -32,7 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         const TextStyle(fontSize: 36.0, color: Colors.white))),
           ]));
 
-  _getImagem(filme) {
+  _getImagemDeFirebaseStorage(filme) {
     return FutureBuilder(
         future: storage.downloadURL('${filme.imagem}'),
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 return InkWell(
                     child: Padding(
                       padding: const EdgeInsets.all(1),
-                      child: _getImagem(filme),
+                      child: _getImagemDeFirebaseStorage(filme),
                     ),
                     onTap: () {
                       Navigator.of(context)
